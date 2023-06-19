@@ -16,9 +16,9 @@ export class CameraComponent implements OnInit {
   async takePicture() {
     const image = await Camera.getPhoto({
       quality: 100,
-      allowEditing: false,
+      allowEditing: true,
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt
+      source: CameraSource.Prompt,
     });
     this.picture = image.dataUrl;
   }
