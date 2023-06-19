@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { FormValidationComponent } from '../form-validation/form-validation.component';
+import { CameraComponent } from '../camera/camera.component';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { FormValidationComponent } from '../form-validation/form-validation.comp
     HomePageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [HomePage, FormValidationComponent],
+  declarations: [HomePage, CameraComponent],
 })
 export class HomePageModule {}

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FormValidationComponent } from './form-validation.component';
+import { CameraComponent } from './camera.component';
 
-describe('FormValidationComponent', () => {
-  let component: FormValidationComponent;
-  let fixture: ComponentFixture<FormValidationComponent>;
+describe('CameraComponent', () => {
+  let component: CameraComponent;
+  let fixture: ComponentFixture<CameraComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormValidationComponent ],
+      declarations: [ CameraComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormValidationComponent);
+    fixture = TestBed.createComponent(CameraComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
