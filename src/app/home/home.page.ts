@@ -12,10 +12,10 @@ export class HomePage implements OnInit {
   user: any = null;
   ionicForm: any;
 
-  titleName: any;
+  titleName!: String;
   titleList: any = [];
 
-  description: any;
+  description!: String;
   descriptionList: any = [];
 
   constructor(
