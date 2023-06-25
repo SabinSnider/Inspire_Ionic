@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-camera',
@@ -8,8 +9,9 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class CameraComponent implements OnInit {
   picture: string | undefined;
+  pictureList: any = [];
 
-  constructor() {}
+  constructor(public alertCtrl: AlertController) {}
 
   ngOnInit() {}
 
@@ -21,5 +23,15 @@ export class CameraComponent implements OnInit {
       source: CameraSource.Prompt,
     });
     this.picture = image.dataUrl;
+  }
+
+  addPicture() {
+    let image = this.picture;
+    this.pictureList.push(image);
+    this.picture = '';
+  }
+
+  deletePicture(index: any) {
+    this.pictureList.splice(index, 1); //removes one element from list
   }
 }

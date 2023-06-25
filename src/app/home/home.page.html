@@ -8,9 +8,6 @@
   <ion-button expand="full" (click)="signIn()" *ngIf="!user">
     <ion-icon name="logo-google" slot="start"></ion-icon> Sign In Google
   </ion-button>
-  <ion-button expand="full" (click)="signOut()" *ngIf="user"
-    >Sign out</ion-button
-  >
 
   <!-- Display User name and Email when Logged In -->
   <ion-content *ngIf="user">
@@ -25,9 +22,14 @@
       </ion-label>
     </ion-item>
 
+    <!-- Sign Out button -->
+    <ion-button expand="full" (click)="signOut()" *ngIf="user"
+      >Sign out</ion-button
+    >
+
     <!--  CRUD UI -->
     <div class="ion-padding-top">
-      <form [formGroup]="ionicForm" novalidate>
+      <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
         <ion-item>
           <ion-input
             formControlName="title"
@@ -37,11 +39,11 @@
             aria-label="title"
           />
 
-          <div class="item-note" item-end>
+          <!-- <div class="item-note" item-end>
             <button ion-button (click)="addTitle()">
               <ion-icon name="add" size="large"></ion-icon>
             </button>
-          </div>
+          </div> -->
         </ion-item>
         <div
           *ngIf="
@@ -76,11 +78,7 @@
             [(ngModel)]="description"
             aria-label="description"
           />
-          <div class="item-note" item-end>
-            <button ion-button (click)="addDescription()">
-              <ion-icon name="add" size="large"></ion-icon>
-            </button>
-          </div>
+        
         </ion-item>
 
         <div
@@ -108,45 +106,73 @@
           </div>
         </div>
 
-        <!-- Display list of added Title -->
-        <div padding>
-          <ion-list>
-            <ion-item *ngFor="let item of titleList; let i = index">
-              <ion-text>Title : </ion-text>
-              {{item}}
-              <div class="item-note" item-end>
-                <button ion-button (click)="updateTitle(i)">
-                  <ion-icon name="create" size="large"></ion-icon>
-                </button>
-                <button ion-button (click)="deleteTitle(i)">
-                  <ion-icon name="trash" size="large"></ion-icon>
-                </button>
-              </div>
-            </ion-item>
-          </ion-list>
-        </div>
-
-        <!-- Display list of added Description -->
-        <div padding>
-          <ion-list>
-            <ion-item *ngFor="let item of descriptionList; let i = index">
-              <ion-text>Description : </ion-text>
-              {{item}}
-              <div class="item-note" item-end>
-                <button ion-button (click)="updateDescription(i)">
-                  <ion-icon name="create" size="large"></ion-icon>
-                </button>
-                <button ion-button (click)="deleteDescription(i)">
-                  <ion-icon name="trash" size="large"></ion-icon>
-                </button>
-              </div>
-            </ion-item>
-          </ion-list>
-        </div>
-
         <!-- Camera Component -->
-        <app-camera></app-camera>
+        <ion-button (click)="takePicture()">Take Picture</ion-button>
+        <img [src]="picture" style="width: 200px" />
+
+        <!-- <app-camera></app-camera> -->
+
+        <!-- Submit Button -->
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" color="danger" expand="block"
+              >Submit</ion-button
+            >
+          </ion-col>
+        </ion-row>
       </form>
+      <!-- Display list of added Title -->
+      <div padding>
+        <ion-list>
+          <ion-item *ngFor="let item of titleList; let i = index">
+            <ion-text>Title : </ion-text>
+            {{item}}
+            <div class="item-note" item-end>
+              <button ion-button (click)="updateTitle(i)">
+                <ion-icon name="create" size="large"></ion-icon>
+              </button>
+              <button ion-button (click)="deleteTitle(i)">
+                <ion-icon name="trash" size="large"></ion-icon>
+              </button>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <!-- Display list of added Description -->
+      <div padding>
+        <ion-list>
+          <ion-item *ngFor="let item of descriptionList; let i = index">
+            <ion-text>Description : </ion-text>
+            {{item}}
+            <div class="item-note" item-end>
+              <button ion-button (click)="updateDescription(i)">
+                <ion-icon name="create" size="large"></ion-icon>
+              </button>
+              <button ion-button (click)="deleteDescription(i)">
+                <ion-icon name="trash" size="large"></ion-icon>
+              </button>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <!-- Display list of added Picture -->
+      <div padding>
+        <ion-list>
+          <ion-item *ngFor="let item of pictureList; let i = index">
+            <ion-text>Image : </ion-text>
+            <!-- {{ item }} -->
+            <img [src]="item" style="width: 200px" />
+
+            <div class="item-note" item-end>
+              <button ion-button (click)="deletePicture(i)">
+                <ion-icon name="trash" size="large"></ion-icon>
+              </button>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
   </ion-content>
 </ion-content>

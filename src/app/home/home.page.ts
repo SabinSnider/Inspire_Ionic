@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { isPlatform, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class HomePage implements OnInit {
   user: any = null;
   ionicForm: any;
+  picture: string | undefined;
+  pictureList: any = [];
 
   titleName!: String;
   titleList: any = [];
@@ -47,6 +50,27 @@ export class HomePage implements OnInit {
     this.user = null;
   }
 
+  //Get Picture
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 100,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt,
+    });
+    this.picture = image.dataUrl;
+  }
+  //Method to add pictures in list
+  addPicture() {
+    let image = this.picture;
+    this.pictureList.push(image);
+    this.picture = '';
+  }
+  //To delete picture
+  deletePicture(index: any) {
+    this.pictureList.splice(index, 1); //removes one element from list
+  }
+
   //Method to add Description
   addDescription() {
     if (this.description.length > 0) {
@@ -57,7 +81,7 @@ export class HomePage implements OnInit {
   }
   //Delete and Update the Description
   deleteDescription(index: any) {
-    this.descriptionList.splice(index, 1);
+    this.descriptionList.splice(index, 1); //removes one element from list
   }
 
   async updateDescription(index: any) {
@@ -88,7 +112,7 @@ export class HomePage implements OnInit {
   }
   // Delete and Update Title method
   deleteTitle(index: any) {
-    this.titleList.splice(index, 1);
+    this.titleList.splice(index, 1); //removes one element from list
   }
 
   async updateTitle(index: any) {
@@ -107,4 +131,26 @@ export class HomePage implements OnInit {
     });
     await alert.present(); // displays Alert
   }
+
+  submitForm = () => {
+    if (this.ionicForm.valid) {
+      if (this.titleName.length > 0 && this.description.length > 0) {
+        let name = this.titleName;
+        this.titleList.push(name);
+        this.titleName = '';
+
+        let detail = this.description;
+        this.descriptionList.push(detail);
+        this.description = '';
+
+        let image = this.picture;
+        this.pictureList.push(image);
+        this.picture = '';
+      }
+
+      return false;
+    } else {
+      return console.log('Please provide all the required values!');
+    }
+  };
 }
