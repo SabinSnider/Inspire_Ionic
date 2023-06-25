@@ -39,6 +39,7 @@ export class HomePage implements OnInit {
   get errorControl() {
     return this.ionicForm.controls;
   }
+
   //Google Sign in and Sign Out
   async signIn() {
     this.user = await GoogleAuth.signIn();
@@ -60,12 +61,7 @@ export class HomePage implements OnInit {
     });
     this.picture = image.dataUrl;
   }
-  //Method to add pictures in list
-  addPicture() {
-    let image = this.picture;
-    this.pictureList.push(image);
-    this.picture = '';
-  }
+
   //To delete picture
   deletePicture(index: any) {
     this.pictureList.splice(index, 1); //removes one element from list
@@ -101,15 +97,6 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
-  //Method to add Title
-
-  addTitle() {
-    if (this.titleName.length > 0) {
-      let name = this.titleName;
-      this.titleList.push(name);
-      this.titleName = '';
-    }
-  }
   // Delete and Update Title method
   deleteTitle(index: any) {
     this.titleList.splice(index, 1); //removes one element from list
@@ -135,22 +122,22 @@ export class HomePage implements OnInit {
   submitForm = () => {
     if (this.ionicForm.valid) {
       if (this.titleName.length > 0 && this.description.length > 0) {
+        // Add title 
         let name = this.titleName;
         this.titleList.push(name);
         this.titleName = '';
 
+        // Add descriptions
         let detail = this.description;
         this.descriptionList.push(detail);
         this.description = '';
 
+        // add pictures in the list
         let image = this.picture;
         this.pictureList.push(image);
         this.picture = '';
       }
 
-      return false;
-    } else {
-      return console.log('Please provide all the required values!');
-    }
+    } 
   };
 }
